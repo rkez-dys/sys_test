@@ -1,0 +1,7 @@
+Content-Dispositionは、MIMEデータ形式で使われるヘッダーの1つで、メールやHTTPリクエスト/レスポンスのボディパートに対して、どのように処理すべきかを指示するために使用されます。
+
+Content-Disposition: attachment; filename="filename.jpg"は、レスポンスのボディパートにあるファイルをダウンロードするためにブラウザに通知するために使用されます。attachmentパラメータは、ファイルがダウンロードされることを示し、filenameパラメータは、ダウンロードされるファイルの名前を示します。
+
+一方、Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"は、HTTPリクエストのボディパートで使用されます。この場合、form-dataパラメータは、HTTPリクエストがフォームデータを含んでいることを示し、nameパラメータは、データがどのフィールドに属しているかを示し、filenameパラメータは、アップロードされたファイルの名前を示します。
+
+要約すると、Content-Disposition: attachment; filename="filename.jpg"は、レスポンスでファイルをダウンロードするために使用され、Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"は、HTTPリクエストでフォームデータとしてファイルをアップロードするために使用されます。
