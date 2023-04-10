@@ -18,3 +18,14 @@ class MyComponent extends React.Component {
     );
   }
 }
+
+<li onClick={(e) => clickEvent(e)} style={{ display: 'list-item' } />
+
+const liClickEvent = () => {
+  if (buttonRef.current) {
+    buttonRef.current.click();
+  }
+};
+
+ <button type="submit" ref={buttonRef} style={{ display: "none" }} />
+ <li onClick={liClickEvent}>Click me</li>
