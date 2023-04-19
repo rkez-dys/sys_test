@@ -1,18 +1,23 @@
-import React, { useState, useRef } from "react";
+// 新規のXMLドキュメントを作成
+const xmlDocument = document.implementation.createDocument(null, null, null);
 
-const Test = () => {
-  const [data, setData] = useState<string>('');
-  const textRef = useRef<HTMLInputElement>(null);
+// ルート要素を作成してドキュメントに追加
+const rootElement = xmlDocument.createElement("root");
+xmlDocument.appendChild(rootElement);
 
-  const handleDataChange = () => {
-    setData(textRef.current?.value ?? '');
-  }
+// 子要素を作成してルート要素に追加
+const childElement1 = xmlDocument.createElement("child1");
+const childText1 = xmlDocument.createTextNode("テキスト1");
+childElement1.appendChild(childText1);
+rootElement.appendChild(childElement1);
 
-  return (
-    <div>
-      <input type="text" ref={textRef} onChange={handleDataChange} />
-    </div>
-  );
-};
+// 別の子要素を作成してルート要素に追加
+const childElement2 = xmlDocument.createElement("child2");
+const childText2 = xmlDocument.createTextNode("テキスト2");
+childElement2.appendChild(childText2);
+rootElement.appendChild(childElement2);
 
-export default Test;
+// XMLドキュメントを文字列に変換
+const xmlString = new XMLSerializer().serializeToString(xmlDocument);
+
+console.log(xmlString);
