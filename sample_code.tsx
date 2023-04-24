@@ -30,6 +30,16 @@ const element = document.createElementNS(ns, 'foo');
 element.setAttributeNS('http://www.w3.org/2000/xmlns/', `xmlns:${prefix}`, ns);
 // <foo xmlns:ex="http://example.com/ns" />
 
+const ns1 = 'http://example.com/ns1';
+const ns2 = 'http://example.com/ns2';
+const prefix1 = 'ex1';
+const prefix2 = 'ex2';
+
+const element = document.createElement('foo');
+element.setAttributeNS('http://www.w3.org/2000/xmlns/', `xmlns:${prefix1}`, ns1);
+element.setAttributeNS('http://www.w3.org/2000/xmlns/', `xmlns:${prefix2}`, ns2);
+// <foo xmlns:ex1="http://example.com/ns1" xmlns:ex2="http://example.com/ns2" />
+
 const ns = 'http://example.com/ns'; // 名前空間URI
 const prefix = 'ex'; // 名前空間接頭辞
 
@@ -43,11 +53,14 @@ const fooElement = rootElement.querySelector('ex\\:foo') as Element; // ex:foo�
 const namespaceURI = fooElement.namespaceURI; // 名前空間URIを取得
 console.log(namespaceURI); // "http://example.com/ns"が出力される
 
-// ns定義方法
-const ns = 'http://example.com/ns'; // 名前空間URI
-const prefix = 'ex'; // 名前空間接頭辞
+const rootElement = document.documentElement;
+const namespaceURI = rootElement.lookupNamespaceURI('ex');
+console.log(namespaceURI); // 'http://example.com/catalog'
 
-const element = document.createElementNS(ns, `${prefix}:foo`);
+const rootElement = document.documentElement;
+const namespaceURI = rootElement.getAttribute('ex:xmlns');
+console.log(namespaceURI); // 'http://example.com/catalog'
+
 
 
 interface MyData {
