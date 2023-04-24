@@ -22,6 +22,34 @@ const xmlString = new XMLSerializer().serializeToString(xmlDocument);
 
 console.log(xmlString);
 
+
+const ns = 'http://example.com/ns'; // 名前空間URI
+const prefix = 'ex'; // 名前空間接頭辞
+
+const element = document.createElementNS(ns, 'foo');
+element.setAttributeNS('http://www.w3.org/2000/xmlns/', `xmlns:${prefix}`, ns);
+// <foo xmlns:ex="http://example.com/ns" />
+
+const ns = 'http://example.com/ns'; // 名前空間URI
+const prefix = 'ex'; // 名前空間接頭辞
+
+const element = document.createElementNS(ns, `${prefix}:foo`);
+const childElement = document.createElementNS(ns, `${prefix}:bar`);
+element.appendChild(childElement);
+
+// ns取得方法
+const rootElement = document.documentElement; // ルート要素を取得
+const fooElement = rootElement.querySelector('ex\\:foo') as Element; // ex:foo要素を取得
+const namespaceURI = fooElement.namespaceURI; // 名前空間URIを取得
+console.log(namespaceURI); // "http://example.com/ns"が出力される
+
+// ns定義方法
+const ns = 'http://example.com/ns'; // 名前空間URI
+const prefix = 'ex'; // 名前空間接頭辞
+
+const element = document.createElementNS(ns, `${prefix}:foo`);
+
+
 interface MyData {
   id: number;
   name: string;
