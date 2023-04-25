@@ -62,6 +62,46 @@ const namespaceURI = rootElement.getAttribute('ex:xmlns');
 console.log(namespaceURI); // 'http://example.com/catalog'
 
 
+function addIndentationToXml(xmlDoc: Document): void {
+  const serializer = new XMLSerializer();
+  const xmlString = serializer.serializeToString(xmlDoc);
+  const formattedXmlString = formatXml(xmlString);
+  const parser = new DOMParser();
+  const formattedXmlDoc = parser.parseFromString(formattedXmlString, "text/xml");
+  xmlDoc.replaceChild(xmlDoc.importNode(formattedXmlDoc.documentElement, true), xmlDoc.documentElement);
+}
+
+function formatXml(xml: string): string {
+  const PADDING = " ".repeat(2); // 2 spaces
+  const reg = /(>)(<)(\/*)/g;
+  let formatted = "";
+  let pad = 0;
+
+  xml = xml.replace(reg, "$1\n$2$3");
+
+  xml.split("\n").forEach((node) => {
+    let indent = 0;
+    if (node.match(/.+<\/\w[^>]*>$/)) {
+      indent = 0;
+    } else if (node.match(/^<\/\w/)) {
+      if (pad !== 0) {
+        pad -= 1;
+      }
+    } else if (node.match(/^<\w([^>]*[^/])?>.*$/)) {
+      indent = 1;
+    } else {
+      indent = 0;
+    }
+
+    const padding = PADDING.repeat(pad);
+    formatted += padding + node + "\n";
+    pad += indent;
+  });
+
+  return formatted.trim();
+}
+
+
 
 interface MyData {
   id: number;
