@@ -130,3 +130,47 @@ const currentPage = 2; // 現在のページ
 const currentData = getPage(currentPage, myDataList); // 現在のページに表示するデータ
 
 console.log(currentData); // [{ id: 3, name: 'Charlie', age: 35 }, { id: 4, name: 'David', age: 40 }]
+
+
+import * as React from 'react';
+
+interface Props {
+  data: string; // CSVファイルに変換するデータ
+  filename: string; // ダウンロードするファイル名
+}
+
+const CsvDownloader: React.FC<Props> = ({ data, filename }) => {
+  const handleClick = () => {
+    const blob = new Blob([data], { type: 'text/csv' }); // Blobオブジェクトを作成する
+    const url = URL.createObjectURL(blob); // BlobオブジェクトからURLを生成する
+    const link = document.createElement('a'); // ダウンロード用のa要素を作成する
+    link.href = url; // ダウンロード用のURLを設定する
+    link.download = filename; // ファイル名を設定する
+    document.body.appendChild(link); // a要素をbodyに追加する
+    link.click(); // a要素をクリックしてダウンロードを開始する
+    document.body.removeChild(link); // a要素を削除する
+    URL.revokeObjectURL(url); // URLを解放する
+  };
+
+  return <button onClick={handleClick}>Download CSV</button>;
+};
+
+export default CsvDownloader;
+
+
+import React from 'react';
+import DownloadCsv from './DownloadCsv';
+
+const ExampleComponent: React.FC = () => {
+  const csvString = '1,2,3\n4,5,6\n7,8,9';
+  const filename = 'example.csv';
+
+  return (
+    <div>
+      <DownloadCsv csvString={csvString} filename={filename} />
+    </div>
+  );
+};
+
+export default ExampleComponent;
+
