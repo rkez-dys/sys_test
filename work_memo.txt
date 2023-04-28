@@ -12,3 +12,9 @@ const html = `
 parent.insertAdjacentHTML("beforeend", html);
 document.body.appendChild(parent);
 
+
+const parser = new DOMParser();
+const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+
+const nsURI = xmlDoc.lookupNamespaceURI("ns");
+const elements = xmlDoc.querySelectorAll(`${nsURI}\\TM`);
