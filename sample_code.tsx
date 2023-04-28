@@ -132,45 +132,98 @@ const currentData = getPage(currentPage, myDataList); // 現在のページに�
 console.log(currentData); // [{ id: 3, name: 'Charlie', age: 35 }, { id: 4, name: 'David', age: 40 }]
 
 
-import * as React from 'react';
 
-interface Props {
-  data: string; // CSVファイルに変換するデータ
-  filename: string; // ダウンロードするファイル名
-}
 
-const CsvDownloader: React.FC<Props> = ({ data, filename }) => {
-  const handleClick = () => {
-    const blob = new Blob([data], { type: 'text/csv' }); // Blobオブジェクトを作成する
-    const url = URL.createObjectURL(blob); // BlobオブジェクトからURLを生成する
-    const link = document.createElement('a'); // ダウンロード用のa要素を作成する
-    link.href = url; // ダウンロード用のURLを設定する
-    link.download = filename; // ファイル名を設定する
-    document.body.appendChild(link); // a要素をbodyに追加する
-    link.click(); // a要素をクリックしてダウンロードを開始する
-    document.body.removeChild(link); // a要素を削除する
-    URL.revokeObjectURL(url); // URLを解放する
-  };
-
-  return <button onClick={handleClick}>Download CSV</button>;
+const downloadFile = (data: string, filename: string) => {
+  // Blobオブジェクトを作成する
+  const blob = new Blob([data], { type: "text/csv" });
+  // BlobオブジェクトからURLを生成する
+  const url = URL.createObjectURL(blob);
+  // ダウンロード用のa要素を作成する
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  // URLを解放する
+  URL.revokeObjectURL(url);
+  // エクスプローラーを表示する
+  const isChrome = !!window.chrome;
+  const isFirefox = navigator.userAgent.indexOf("Firefox") !== -1;
+  if (isChrome || isFirefox) {
+    window.location.href = "data:application/octet-stream," + encodeURIComponent(filename);
+  } else {
+    window.open(url);
+  }
 };
 
-export default CsvDownloader;
+const downloadFile = (data: string, filename: string) => {
+  // Blobオブジェクトを作成する
+  const blob = new Blob([data], { type: "text/csv" });
+  // BlobオブジェクトからURLを生成する
+  const url = URL.createObjectURL(blob);
+  // ダウンロード用のa要素を作成する
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  // URLを解放する
+  URL.revokeObjectURL(url);
 
-
-import React from 'react';
-import DownloadCsv from './DownloadCsv';
-
-const ExampleComponent: React.FC = () => {
-  const csvString = '1,2,3\n4,5,6\n7,8,9';
-  const filename = 'example.csv';
-
-  return (
-    <div>
-      <DownloadCsv csvString={csvString} filename={filename} />
-    </div>
-  );
+  // Safari以外のブラウザの場合、ファイル名を指定して保存する
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  if (!isSafari) {
+    const saveFileName = prompt("ファイル名を入力してください", filename);
+    if (saveFileName) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = saveFileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
 };
 
-export default ExampleComponent;
+const downloadFile = (data: string, filename: string) => {
+  // Blobオブジェクトを作成する
+  const blob = new Blob([data], { type: "text/csv" });
+  // BlobオブジェクトからURLを生成する
+  const url = URL.createObjectURL(blob);
+  // ダウンロード用のa要素を作成する
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  // URLを解放する
+  URL.revokeObjectURL(url);
+  // ファイル名を指定して保存する
+  const isChrome = !!window.chrome;
+  const isFirefox = navigator.userAgent.indexOf("Firefox") !== -1;
+  if (isChrome || isFirefox) {
+    window.location.href = "data:application/octet-stream," + encodeURIComponent(filename);
+  } else {
+    const saveFileName = prompt("ファイル名を入力してください", filename);
+    if (saveFileName) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = saveFileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+};
+
+const isEdge = navigator.userAgent.indexOf("Edge") !== -1;
+const isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
+const isFirefox = navigator.userAgent.indexOf("Firefox") !== -1;
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+
 
