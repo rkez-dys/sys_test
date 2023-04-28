@@ -1,25 +1,14 @@
-setAttributeNS()メソッドの第一引数は、属性の名前空間URIを指定するためのものです。一方、第三引数は、属性の値を指定するためのものです。
+名前空間を使用して要素と属性をグループ化することができます。しかし、insertAdjacentHTMLは名前空間をサポートしていません。したがって、名前空間を持つXMLを作成することはできません。
+&など文字化けする可能性がある
+DOMツリーに追加するときはdocument.createElementを使用する必要がある
 
-例えば、次のコードでは、名前空間URIがhttp://www.w3.org/2000/xmlns/であるxmlns:exという属性を作成し、それにhttp://example.com/nsというURIを設定しています。
-
-typescript
-Copy code
-const ns = 'http://example.com/ns'; // 名前空間URI
-const prefix = 'ex'; // 名前空間接頭辞
-
-const element = document.createElementNS(ns, 'foo');
-element.setAttributeNS('http://www.w3.org/2000/xmlns/', `xmlns:${prefix}`, ns);
-xmlnsという属性は、XML文書内で名前空間を定義するための特別な属性であり、名前空間URIを持つ属性は、xmlns:という接頭辞がついた属性名を持ちます。ここでは、setAttributeNS()メソッドを使用して、xmlns:exという属性を作成し、その値にhttp://example.com/nsを設定しています。これにより、exという名前空間接頭辞を持つ要素を作成することができます。
-
-
-サクラエディタでXML文書をインデントありで改行する方法は以下の手順です。
-
-XML文書を開きます。
-メニューの「設定」→「タイプ別設定」→「XML」を選択します。
-「インデントを行う」にチェックを入れます。
-「インデント文字列」にはスペースを指定します。
-XML文書の選択範囲を全選択します。
-メニューの「ツール」→「スクリプト」→「整形」を選択します。
-インデントを設定した内容に従って、XML文書が整形されます。
-上記手順に従うと、XML文書がインデントありで改行された状態になります。
+const parent = document.createElement("div");
+const html = `
+  <div>
+    <p>Child Element 1</p>
+    <p>Child Element 2</p>
+  </div>
+`;
+parent.insertAdjacentHTML("beforeend", html);
+document.body.appendChild(parent);
 
