@@ -1,20 +1,16 @@
-名前空間を使用して要素と属性をグループ化することができます。しかし、insertAdjacentHTMLは名前空間をサポートしていません。したがって、名前空間を持つXMLを作成することはできません。
-&など文字化けする可能性がある
-DOMツリーに追加するときはdocument.createElementを使用する必要がある
-
-const parent = document.createElement("div");
-const html = `
-  <div>
-    <p>Child Element 1</p>
-    <p>Child Element 2</p>
-  </div>
-`;
-parent.insertAdjacentHTML("beforeend", html);
-document.body.appendChild(parent);
-
-
-const parser = new DOMParser();
-const xmlDoc = parser.parseFromString(xmlString, "application/xml");
-
-const nsURI = xmlDoc.lookupNamespaceURI("ns");
-const elements = xmlDoc.querySelectorAll(`${nsURI}\\TM`);
+・最近変えた仕事スタイル
+　現在では、軽微な打ち合わせや会話の内容については、メモを取りエビデンスとして残し、
+　チーム内で共有するようにしています。以前は、それらの内容を自分の頭の中に留めるか、
+　自分だけのメモを残すだけでした。しかし、お互いの認識の違いを防ぐために、
+　必ず相手と共有できるように努めています。
+　
+・最近変更して成功事例と感じる他人事例
+　メンバーへの担当作業を変更する際には、スキルや個人の特性を考慮し、
+　適切な割り振りを行っています。これにより、プロジェクト全体の作業進捗を
+　向上させることができています。
+　
+・今後変更していく事例
+　作業を開始する前に、作業の全体的な規模を完全に把握するよう心掛けます。
+　この際には、規模の算出方法を明確にし、他の人にもわかりやすく伝えることを心掛けます。
+　また、算出結果が可能な限り正確であるように努めます。
+　
