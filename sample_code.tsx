@@ -1,5 +1,3 @@
-const convertToFullWidth = (str: string): string => {
-    return str.replace(/[!-~]/g, (char) => {
-      return String.fromCharCode(char.charCodeAt(0) + 0xfee0);
-    });
-  };  
+const [result, setResult] = useState<boolean>(false);
+
+ setResult(bool1 || bool2 || bool3 || bool4 || bool5 || bool6);
