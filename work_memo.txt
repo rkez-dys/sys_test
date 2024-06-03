@@ -5,32 +5,35 @@ Sub ConvertExcelToJson()
     Dim i As Long, j As Long
     Dim cellValue As String
     Dim headerValues() As String
+    Dim dataTypeValues() As String
     
     ' ワークシートを設定
     Set ws = ThisWorkbook.Sheets("Sheet1") ' シート名を適切な名前に変更
     
     ' 最終行と最終列を取得
     lastRow = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
-    lastCol = ws.Cells(4, ws.Columns.Count).End(xlToLeft).Column
+    lastCol = ws.Cells(5, ws.Columns.Count).End(xlToLeft).Column
     
     ' ヘッダーを取得
     ReDim headerValues(1 To lastCol)
+    ReDim dataTypeValues(1 To lastCol)
     For j = 1 To lastCol
-        headerValues(j) = ws.Cells(4, j).Value
+        headerValues(j) = ws.Cells(5, j).Value
+        dataTypeValues(j) = ws.Cells(4, j).Value
     Next j
     
     ' JSON形式の文字列を初期化
-    jsonStr = "["
+    jsonStr = "JSON.stringify(["
     
     ' 表形式のデータをJSON形式に変換
-    For i = 5 To lastRow ' 4行目から開始
+    For i = 6 To lastRow ' 6行目から開始
         jsonStr = jsonStr & vbCrLf & "{"
         For j = 1 To lastCol
             cellValue = ws.Cells(i, j).Value
-            If IsNumeric(cellValue) And Not IsEmpty(cellValue) Then
-                jsonStr = jsonStr & """" & headerValues(j) & """: " & cellValue & ","
+            If (dataTypeValues(j) = "数値" Or dataTypeValues(j) = "bool") And Not IsEmpty(cellValue) Then
+                jsonStr = jsonStr & "'" & headerValues(j) & "': " & cellValue & ","
             Else
-                jsonStr = jsonStr & """" & headerValues(j) & """: """ & cellValue & ""","
+                jsonStr = jsonStr & "'" & headerValues(j) & "': '" & cellValue & "',"
             End If
         Next j
         ' 最後のカンマを削除
@@ -46,7 +49,7 @@ Sub ConvertExcelToJson()
     End If
     
     ' JSON形式の文字列を完成させる
-    jsonStr = jsonStr & vbCrLf & "]"
+    jsonStr = jsonStr & vbCrLf & "])"
     
     ' 結果を出力するシートを設定
     Dim targetSheet As Worksheet
@@ -61,4 +64,3 @@ Sub ConvertExcelToJson()
     ' JSON形式の文字列を出力
     targetSheet.Cells(1, 1).Value = jsonStr
 End Sub
-
