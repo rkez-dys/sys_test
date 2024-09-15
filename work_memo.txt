@@ -1,66 +1,23 @@
-Sub ConvertExcelToJson()
-    Dim ws As Worksheet
-    Dim lastRow As Long, lastCol As Long
-    Dim jsonStr As String
-    Dim i As Long, j As Long
-    Dim cellValue As String
-    Dim headerValues() As String
-    Dim dataTypeValues() As String
-    
-    ' ワークシートを設定
-    Set ws = ThisWorkbook.Sheets("Sheet1") ' シート名を適切な名前に変更
-    
-    ' 最終行と最終列を取得
-    lastRow = ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
-    lastCol = ws.Cells(5, ws.Columns.Count).End(xlToLeft).Column
-    
-    ' ヘッダーを取得
-    ReDim headerValues(1 To lastCol)
-    ReDim dataTypeValues(1 To lastCol)
-    For j = 1 To lastCol
-        headerValues(j) = ws.Cells(5, j).Value
-        dataTypeValues(j) = ws.Cells(4, j).Value
-    Next j
-    
-    ' JSON形式の文字列を初期化
-    jsonStr = "JSON.stringify(["
-    
-    ' 表形式のデータをJSON形式に変換
-    For i = 6 To lastRow ' 6行目から開始
-        jsonStr = jsonStr & vbCrLf & "{"
-        For j = 1 To lastCol
-            cellValue = ws.Cells(i, j).Value
-            If (dataTypeValues(j) = "数値" Or dataTypeValues(j) = "bool") And Not IsEmpty(cellValue) Then
-                jsonStr = jsonStr & "'" & headerValues(j) & "': " & cellValue & ","
-            Else
-                jsonStr = jsonStr & "'" & headerValues(j) & "': '" & cellValue & "',"
-            End If
-        Next j
-        ' 最後のカンマを削除
-        If Right(jsonStr, 1) = "," Then
-            jsonStr = Left(jsonStr, Len(jsonStr) - 1)
-        End If
-        jsonStr = jsonStr & "},"
-    Next i
-    
-    ' 最後のカンマを削除
-    If Right(jsonStr, 1) = "," Then
-        jsonStr = Left(jsonStr, Len(jsonStr) - 1)
-    End If
-    
-    ' JSON形式の文字列を完成させる
-    jsonStr = jsonStr & vbCrLf & "])"
-    
-    ' 結果を出力するシートを設定
-    Dim targetSheet As Worksheet
-    On Error Resume Next
-    Set targetSheet = ThisWorkbook.Sheets("JSON Output")
-    On Error GoTo 0
-    If targetSheet Is Nothing Then
-        Set targetSheet = ThisWorkbook.Sheets.Add(After:=ThisWorkbook.Sheets(ThisWorkbook.Sheets.Count))
-        targetSheet.Name = "JSON Output"
-    End If
-    
-    ' JSON形式の文字列を出力
-    targetSheet.Cells(1, 1).Value = jsonStr
-End Sub
+私は、お客様からのソースレビュー評価を高くいただき、実装および単体フェーズの責任を全うしてきたことを評価され、昇格の機会をいただきました。
+この経験を通じて感じたことは、会社に貢献するためには、自分の与えられた仕事を責任を持って完遂することが基本であり、
+その積み重ねが最終的には売上や企業価値向上に繋がるということです。
+今後、Ｓｋｙ株式会社をさらに優良企業にするために、私自身が取り組むべきことは、以下の3点です。
+1. チームワークの強化
+私はこれまで個人の技術力を高めることに注力してきましたが、次のステップではチーム全体の成長を促進する役割が求められます。
+チームメンバーそれぞれの強みを活かし、効率的かつ効果的な協力体制を築くことで、個人の貢献を最大化すると同時に、チームとしての生産性を向上させたいと考えています。
+2. 若手メンバーの育成
+私が評価され昇格できたのは、先輩方や上司の指導と支援があったからです。次の役職では、私が若手メンバーの成長を支援する責任があります。
+彼らが技術力を磨き、チームに積極的に貢献できるよう、メンタリングやトレーニングの機会を提供し、自己成長の場を広げることが目標です。
+3. 業務スキルの向上の挑戦
+技術の進化は非常に速く、常に最先端の知識とスキルを持ち続けることが、個人としても会社としても重要です。
+私自身、自分の技術力をもっと向上させる必要があると感じています。要件定義のスキル向上、お客様の実務要件の理解、ERPに対しての基礎知識の学習など、
+これらの分野に積極的に取り組むことで、業務スキルの向上させてたいと考えています。
+次の役職では、さらに実力主義とＳｋｙイズムを広めるため、以下の行動を徹底していきたいと考えています。
+1. 公平な評価体制の確立 
+実力主義をさらに強化するためには、公平な評価制度が必要不可欠だと考えます。他のグループやチームがどのような評価基準を用いているか分かりませんが、
+評価基準にブレがあったり不明確な内容があれば、公平性が下がると思います。評価基準を明確にし、全メンバーが納得感のある評価を受けられるようにすることで、
+社員のモチベーションを高め、会社全体の生産性向上に繋がると考えます。
+2. 挑戦する文化の醸成 
+Ｓｋｙイズムの根幹には「挑戦する姿勢」があります。現在も自分自身が取り組みたい分野、業務を選択する制度がありますが、これを継続していただきたいです。
+私自身が転職した理由の一つに、現状とは、違った分野への挑戦したかったことがあります。自発的に挑戦できる環境があり続けることで、リスクを恐れず挑戦する文化を推奨し、
+その挑戦を評価する風土を継続したいと考えています。
