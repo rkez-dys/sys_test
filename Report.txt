@@ -1,3 +1,8 @@
-Udemyの「はじめてのMicrosoft Azure」と「【Azureではじめる】AI開発のためのPython入門」を学習し、クラウド基盤とAI開発の基本を体系的に理解することができました。Azureの講座では、リソースグループ、ストレージアカウント、仮想マシン、App Service など主要サービスの役割と使い方を学び、クラウド環境での運用管理のイメージがつかめました。また、Azure Portal の操作やリソース作成の流れを実際に触れることで、クラウド特有の構成管理やセキュリティ設定の重要性も実感しました。
-Python入門講座では、Azure × Python の活用を意識したAI開発の基礎を身につけました。Pythonの文法に加え、OpenAI API の扱い方、Azure OpenAI Service を利用したモデル呼び出しの方法など、実務に直結する内容が多く含まれていました。特に、環境構築やライブラリ管理、APIリクエストの実装手順を手を動かしながら学べたことが大きな収穫でした。
-両講座を通じ、Azureを基盤としたAI開発の流れを理解でき、クラウドとPythonを組み合わせた実装に対する自信が高まりました。今後は学んだ内容を実務で活かし、より高度なAzureサービスやAI機能の活用にも挑戦していきたいです。
+Udemy�́u�yAzure�ł͂��߂�zAI�J���̂��߂�Python����v��ʂ��āAAI�J���ɂ�����Python���C�u�������ʂ��������̏d�v���ƁA
+��{�I�Ȏg�����ɂ��Ċw�K���܂����B�{�u���ł́APython��p����AI�J���̑����Ƃ��āA���l�v�Z��f�[�^�����A
+�@�B�w�K�ŕp�ɂɗ��p������\�I�ȃ��C�u�����̎�ނƓ������w�K���܂����B��̓I�ɂ́ANumPy�ɂ��z�񑀍�␔�l�v�Z�A
+pandas��p�����f�[�^�̉��H�E���́Amatplotlib�ɂ��f�[�^�̉����ȂǁAAI�J���̓y��ƂȂ�Z�p�����H�I�Ɋw�Ԃ��Ƃ�
+�ł��܂����B�܂��AAzure����Python�𓮂����ۂ̊�{�I�Ȑݒ��A���C�u�������C���X�g�[�����ė��p���闬��ɂ��Ă�
+������[�߂邱�Ƃ��ł��܂����B���ɁA���C�u������K�؂Ɏg�������邱�ƂŁA���Ȃ��R�[�h�ʂł������I�ɏ����������ł���_��
+��ۂɎc���Ă��܂��B����̊w�K��ʂ��āAPython���C�u�����𐳂������������p���邱�Ƃ��AAI�J����i�߂��Ō������Ȃ�
+��b�X�L���ł���Ƌ��������܂����B����́A�w�񂾃��C�u������������l�J���ł��ϋɓI�Ɋ��p���Ă��������ƍl���Ă��܂��B
